@@ -32,6 +32,6 @@ Lock In takes the opposite approach: a single purpose, done well. Add sites to y
 3. Toggle **Developer mode** (top-right)  
 4. Click **Load unpacked** and select the unzipped folder  
 
-## Demo
+## Installation + Use Demo
 
 [![Watch the demo](https://img.youtube.com/vi/pSFS_Z2HBFI/maxresdefault.jpg)](https://youtu.be/pSFS_Z2HBFI)
