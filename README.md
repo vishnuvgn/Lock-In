@@ -20,6 +20,17 @@ Lock In takes the opposite approach: a single purpose, done well. Add sites to y
 - Lock in for a set time or run indefinitely
 - Works out of the box — no accounts or setup required
 
+## Screenshots
+
+### Extension icon
+![Lock In active](images/active_extension.jpg)
+
+### Blocked site page
+![Focus Mode Active](images/blocked.js.jpg)
+
+### Options menu
+![Options page](images/options.js.jpg)
+
 ## Installation
 1. [Download Lock In from the Chrome Web Store](#) *(link coming soon)*
 2. Click the extension icon to open options
@@ -31,3 +42,7 @@ Lock In takes the opposite approach: a single purpose, done well. Add sites to y
 2. Open `chrome://extensions/` in Chrome  
 3. Toggle **Developer mode** (top-right)  
 4. Click **Load unpacked** and select the unzipped folder  
+
+## Installation Demo
+
+![Installation Demo]("lock-in-demo.gif")
