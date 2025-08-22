@@ -147,12 +147,10 @@ async function resumeBlockedTabs() {
    Cancel → confirmation modal
    ========================= */
 
-// Build the modal lazily in JS so you don't need to edit options.html
 function ensureModal() {
   let overlay = document.getElementById("sb-confirm-overlay");
   if (overlay) return overlay;
 
-  // Inject minimal styles once
   if (!document.getElementById("sb-confirm-style")) {
     const style = document.createElement("style");
     style.id = "sb-confirm-style";

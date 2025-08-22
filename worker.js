@@ -16,8 +16,8 @@ function ruleIdForHost(host) {
     h ^= host.charCodeAt(i);
     h = Math.imul(h, 16777619);
   }
-  const BASE = 100000;             // keep away from tiny ids like 1..N
-  return BASE + (h >>> 0);         // 32-bit
+  const BASE = 100000;             
+  return BASE + (h >>> 0);         
 }
 
 function sanitizeList(blocklist) {
