@@ -34,15 +34,4 @@ Lock In takes the opposite approach: a single purpose, done well. Add sites to y
 
 ## Demo
 
-[![Watch the demo](https://img.youtube.com/vi/VCF9ZAlMb5s/0.jpg)](https://youtu.be/VCF9ZAlMb5s)
-
-## Screenshots
-
-### Extension icon
-![Lock In active](images/active_extension.jpg)
-
-### Blocked site page
-![Focus Mode Active](images/blocked.js.jpg)
-
-### Options menu
-![Options page](images/options.js.jpg)
+[![Watch the demo](https://img.youtube.com/vi/pSFS_Z2HBFI/maxresdefault.jpg)](https://youtu.be/pSFS_Z2HBFI)
