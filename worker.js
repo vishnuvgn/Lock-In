@@ -16,8 +16,9 @@ function ruleIdForHost(host) {
     h ^= host.charCodeAt(i);
     h = Math.imul(h, 16777619);
   }
-  const BASE = 100000;             
-  return BASE + (h >>> 0);         
+  const BASE = 100000;          // keep a high-ish floor to avoid collisions with others
+  const SAFE_30_BITS = h & 0x3fffffff;   // 0 .. 1,073,741,823
+  return BASE + SAFE_30_BITS;            // 100,000 .. 1,073,841,823  (<< 2,147,483,647)
 }
 
 function sanitizeList(blocklist) {
@@ -39,7 +40,7 @@ function makeRules(blocklist) {
   return blocklist.map((host) => {
     const escaped = escapeRe(host);
     const regexFilter = `^https?://([^/]*\\.)?${escaped}(/|$).*`; // host + subdomains
-    const regexSubstitution = `${blockedBase}#u=\\0`;             // stuff full URL into hash
+    const regexSubstitution = `${blockedBase}#u=$0`;             // stuff full URL into hash
     return {
       id: ruleIdForHost(host),
       priority: 1,
