@@ -9,16 +9,17 @@
 function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 function nowMs() { return Date.now(); }
 
-// FNV-1a hash → stable rule id in a high range to avoid conflicts
+// FNV-1a hash → stable POSITIVE rule id in a safe range
 function ruleIdForHost(host) {
   let h = 2166136261 >>> 0;
   for (let i = 0; i < host.length; i++) {
     h ^= host.charCodeAt(i);
     h = Math.imul(h, 16777619);
   }
-  const BASE = 100000;          // keep a high-ish floor to avoid collisions with others
-  const SAFE_30_BITS = h & 0x3fffffff;   // 0 .. 1,073,741,823
-  return BASE + SAFE_30_BITS;            // 100,000 .. 1,073,841,823  (<< 2,147,483,647)
+  const u32 = h >>> 0;                 // force unsigned
+  const BASE = 100000;                 // avoid clashes with other extensions
+  const MAX  = 2147000000;             // keep < 2^31-1
+  return BASE + (u32 % (MAX - BASE));
 }
 
 function sanitizeList(blocklist) {
@@ -38,14 +39,20 @@ function sanitizeList(blocklist) {
 function makeRules(blocklist) {
   const blockedBase = chrome.runtime.getURL("blocked.html"); // chrome-extension://id/blocked.html
   return blocklist.map((host) => {
-    const escaped = escapeRe(host);
-    const regexFilter = `^https?://([^/]*\\.)?${escaped}(/|$).*`; // host + subdomains
-    const regexSubstitution = `${blockedBase}#u=$0`;             // stuff full URL into hash
+    // Use urlFilter form that matches the domain and all subdomains.
+    // Example: "||youtube.com^"
+    const urlFilter = `||${host}^`;
     return {
       id: ruleIdForHost(host),
       priority: 1,
-      action: { type: "redirect", redirect: { regexSubstitution } },
-      condition: { regexFilter, resourceTypes: ["main_frame"] }
+      action: {
+        type: "redirect",
+        redirect: { extensionPath: "/blocked.html" }
+      },
+      condition: {
+        urlFilter,
+        resourceTypes: ["main_frame"]
+      }
     };
   });
 }
@@ -143,7 +150,7 @@ async function removePending(tabId) {
 }
 
 // Remember exact URL that got blocked (needs declarativeNetRequestFeedback)
-chrome.declarativeNetRequest.onRuleMatchedDebug.addListener(async (info) => {
+chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener(async (info) => {
   if (!info?.request) return;
   const tabId = info.request.tabId;
   if (typeof tabId === "number" && info.request.url) {
