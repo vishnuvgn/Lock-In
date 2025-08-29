@@ -21,16 +21,10 @@ Lock In takes the opposite approach: a single purpose, done well. Add sites to y
 - Works out of the box — no accounts or setup required
 
 ## Installation
-1. [Download Lock In from the Chrome Web Store](#) *(link coming soon)*
+1. [Download Lock In from the Chrome Web Store](https://chromewebstore.google.com/detail/dbjfgnmlilgcaoiiljglagjkpfpmleae?utm_source=item-share-cb)
 2. Click the extension icon to open options
 3. Add websites you want to block
 4. Hit **Start** — and you’re locked in
-
-## Install while the Web Store is pending
-1. Download this repo as a ZIP and unzip it  
-2. Open `chrome://extensions/` in Chrome  
-3. Toggle **Developer mode** (top-right)  
-4. Click **Load unpacked** and select the unzipped folder  
 
 ## Installation + Use Demo
 
